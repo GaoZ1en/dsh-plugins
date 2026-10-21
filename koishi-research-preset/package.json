@@ -1,0 +1,24 @@
+{
+  "name": "@koishi/dsh-research-preset",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "A focused mathematical and theoretical-physics research preset for koishi, with curated technical skills and recoverable computation evidence.",
+  "license": "MIT",
+  "engines": { "node": ">=22", "dsh": "0.2.1-rc.2" },
+  "exports": {
+    ".": "./index.js",
+    "./math-results": "./math-results.js",
+    "./compaction": "./compaction.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.png",
+    "./math-results/locale/*.json": "./locale/math-results/*.json",
+    "./math-results/icon": "./icon.png",
+    "./compaction/locale/*.json": "./locale/compaction/*.json",
+    "./compaction/icon": "./icon.png"
+  },
+  "files": ["*.js", "persona.md", "skills/**", "cordis.patch.yml", "locale/**/*.json", "icon.png", "scripts/make-icon.py", "README.md", "VERIFICATION.md", "LICENSE"],
+  "scripts": { "test": "node --test tests/*.test.js", "check": "node --check index.js && node --check math-results.js && node --check compaction.js && node --test tests/*.test.js" },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

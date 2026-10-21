@@ -1,0 +1,200 @@
+/* src/client/settings-card.module.css */
+.settings_card_sectionPage {
+  color: var(--dsw-alias-label-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  font-size: 13px;
+}
+.settings_card_sectionPage p {
+  margin: 0;
+}
+.settings_card_pageHeading {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.settings_card_manager,
+.settings_card_panel,
+.settings_card_section,
+.settings_card_form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.settings_card_panel {
+  gap: 24px;
+}
+.settings_card_form {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.settings_card_tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+.settings_card_tab,
+.settings_card_tabActive {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 14px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--dsw-alias-label-secondary);
+}
+.settings_card_tabActive {
+  border-bottom-color: var(--dsw-alias-brand-primary);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+}
+.settings_card_h,
+.settings_card_hGrow {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.settings_card_hGrow {
+  flex: 1 1 auto;
+}
+.settings_card_inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.settings_card_row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-1);
+}
+.settings_card_main {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.settings_card_name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.settings_card_desc,
+.settings_card_note,
+.settings_card_fieldName {
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+.settings_card_error {
+  color: var(--dsw-alias-state-error-primary);
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.settings_card_switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.settings_card_sectionPage input[type=checkbox] {
+  accent-color: var(--dsw-alias-brand-primary);
+}
+.settings_card_btn,
+.settings_card_btnPrimary,
+.settings_card_btnDanger {
+  font: inherit;
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 6px;
+  background: var(--dsw-alias-bg-layer-1);
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.settings_card_btn:hover,
+.settings_card_btnPrimary:hover,
+.settings_card_btnDanger:hover {
+  background: var(--dsw-alias-bg-layer-2);
+}
+.settings_card_btnPrimary {
+  border-color: var(--dsw-alias-brand-primary);
+  font-weight: 600;
+}
+.settings_card_btnDanger {
+  color: var(--dsw-alias-state-error-primary);
+}
+.settings_card_sectionPage button:disabled,
+.settings_card_sectionPage input:disabled,
+.settings_card_sectionPage fieldset:disabled {
+  opacity: .55;
+  cursor: default;
+}
+.settings_card_sectionPage :focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+.settings_card_input,
+.settings_card_inputGrow,
+.settings_card_filterSelect {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 6px;
+  background: var(--dsw-alias-bg-base);
+  color: var(--dsw-alias-label-primary);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+.settings_card_inputGrow {
+  flex: 1 1 220px;
+  width: auto;
+}
+.settings_card_filterSelect {
+  width: auto;
+}
+.settings_card_input::placeholder,
+.settings_card_inputGrow::placeholder {
+  color: var(--dsw-alias-label-secondary);
+}
+textarea.settings_card_input {
+  resize: vertical;
+}
+.settings_card_fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.settings_card_detail {
+  padding: 10px;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-1);
+}
+.settings_card_pre {
+  margin: 8px 0 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--dsw-alias-bg-layer-2);
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 320px;
+  overflow: auto;
+}

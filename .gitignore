@@ -1,0 +1,18 @@
+# Local dependencies, private state and development-only copies.
+node_modules/
+.DS_Store
+.test-artifacts/
+.plugin-audits/
+.upstream/
+.tmp/
+.deployment-backups/
+*.tgz
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.credentials*
+.openai-codex-auth.json
+research-results/
+# Next Prompt is deliberately not part of this publication.
+next-prompt/

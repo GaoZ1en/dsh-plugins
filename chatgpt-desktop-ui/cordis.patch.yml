@@ -1,0 +1,4 @@
+- insert:
+    - id: koishi-chatgpt-message-style
+      name: '@koishi/dsh-chatgpt-message-style'
+      config: {}

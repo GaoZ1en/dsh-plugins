@@ -1,0 +1,5 @@
+# Local maintained fork. The package owns its own row; no overrides of existing MCPs.
+- insert:
+    - id: koishi-skills-mcp-manager
+      name: '@koishi/dsh-skills-mcp-manager'
+      config: {}

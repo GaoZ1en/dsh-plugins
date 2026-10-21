@@ -1,0 +1,126 @@
+- insert:
+    - id: preset-koishi-research
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: koishi-research
+        name: 研究预设
+        description: 数学与理论物理探索、全面复核与连续推导。
+        order: 20
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: !!js process.getBuiltinModule('node:fs').readFileSync(process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:path').dirname(process.getBuiltinModule('node:module').createRequire(baseUrl).resolve('@koishi/dsh-research-preset/package.json')), 'persona.md'), 'utf8')
+              suffix: ''
+              complete: false
+              includeRuntimeContext: true
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+            config:
+              refreshIntervalMs: 600000
+          - id: tool-bash
+            name: '@deepseek-ai/dsh-tool-bash'
+            disabled: !!js process.platform === 'win32'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: tool-ask-user
+            name: '@deepseek-ai/dsh-tool-ask-user'
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: research-tools
+            name: '@koishi/dsh-research-preset'
+          - id: research-skills
+            name: cordis:group
+            group: true
+            isolate:
+              skills: true
+            config:
+              - id: skill
+                name: '@deepseek-ai/dsh-skill'
+              - id: skill-filesystem
+                name: '@deepseek-ai/dsh-skill-filesystem'
+                config:
+                  includeDefaultRoots: false
+                  customSkillDirs:
+                    - !!js process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:path').dirname(process.getBuiltinModule('node:module').createRequire(baseUrl).resolve('@koishi/dsh-research-preset/package.json')), 'skills')
+              - id: tool-skill
+                name: '@deepseek-ai/dsh-tool-skill'
+                config:
+                  catalogDescriptionMaxLength: 120
+          - id: research-evidence
+            name: cordis:group
+            group: true
+            isolate:
+              spillStore: true
+            config:
+              - id: evidence-store
+                name: '@deepseek-ai/dsh-spill-local'
+                config:
+                  root: !!js process.getBuiltinModule('node:path').join(process.env.DSH_HOME || process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:os').homedir(), '.dsh'), 'research-results')
+                  cleanupPeriodDays: 0
+              - id: math-results
+                name: '@koishi/dsh-research-preset/math-results'
+                config:
+                  maxInlineChars: 4096
+          - id: planning
+            name: cordis:group
+            group: true
+            isolate:
+              planMode: true
+            config:
+              - id: plan-mode
+                name: '@deepseek-ai/dsh-plan-mode'
+                config:
+                  section: |
+                    You are in plan mode. Investigate with non-mutating reads, searches and computations; leave files and configuration unchanged. Form a concrete plan grounded in the available evidence. Ask only for user-owned choices that inspection cannot resolve. Submit the complete plan through exit_plan_mode for approval, as the final tool call of the response. Conversational agreement does not exit plan mode; implementation begins only after approval through that tool or an explicit session-mode switch.
+          - id: research-compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction
+                name: '@koishi/dsh-research-preset/compaction'
+                config:
+                  auto: true
+                  thresholdRatio: 0.75
+                  retainRatio: 0.25
+                  headroomTokens: 16384
+                  maxTokens: 32768
+                  compactionRetries: 1
+                  maxOverflowRetries: 1
+              - id: command-compact
+                name: '@deepseek-ai/dsh-command-compact'
+          - id: tool-subagent-control
+            name: '@deepseek-ai/dsh-tool-subagent-control'
+          - id: tool-subagent-list-agents
+            name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+          - id: tool-subagent
+            name: '@deepseek-ai/dsh-tool-subagent'
+            config:
+              provider: spawn
+              toolName: subagent
+              modelSelectionSettings: false
+              maxDepth: 1
+          - id: tool-subagent-fork
+            name: '@deepseek-ai/dsh-tool-subagent'
+            config:
+              provider: fork
+              toolName: subagent_fork
+              modelSelectionSettings: false
+              maxDepth: 1

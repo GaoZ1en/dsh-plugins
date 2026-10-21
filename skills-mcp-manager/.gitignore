@@ -1,0 +1,5 @@
+node_modules/
+# Keep reproducible lib/ artifacts in this sharing repository.
+dist/
+*.tsbuildinfo
+.DS_Store
