@@ -19,6 +19,25 @@ export function inheritedManagementTools(tools) {
 
 export function apply(ctx) {
   ctx.tools.presentAs('native');
-  const deny = inheritedManagementTools(ctx.tools);
-  if (deny.length) ctx.tools.restrict({ deny });
+  const denied = new Set();
+  const restrictManagement = () => {
+    // restrict() rejects unknown names. tools/change is the public, unfiltered
+    // notification for late registrations, including globals outside this scope.
+    const deny = inheritedManagementTools(ctx.tools).filter(name => !denied.has(name));
+    if (!deny.length) return;
+    // restrict() itself emits tools/change synchronously: mark before calling it.
+    for (const name of deny) denied.add(name);
+    try {
+      ctx.tools.restrict({ deny });
+    } catch (error) {
+      for (const name of deny) denied.delete(name);
+      throw error;
+    }
+    // Keep the mask across unregister/re-register; never replace it with an
+    // allowlist or briefly lift it. At most MANAGEMENT_TOOLS.length names accrue.
+  };
+  // Both listener and restrictions belong to this plugin's scoped context and
+  // are removed by Cordis on unload. Subscribe before taking the initial view.
+  ctx.on('tools/change', restrictManagement);
+  restrictManagement();
 }

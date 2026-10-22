@@ -7,7 +7,7 @@
 | 插件 | 版本 | 内容 |
 |---|---|---|
 | [配色与消息样式](<chatgpt-desktop-ui/README.md>) | 0.2.3 | 蓝紫配色、用户气泡、复制与时间戳、展开思考细线 |
-| [研究预设](<koishi-research-preset/README.md>) | 0.1.1 | 数学与理论物理研究指令、精选技能、计算证据存档、研究摘要及子代理 |
+| [研究预设](<koishi-research-preset/README.md>) | 0.2.0 | 研究检查点、短尾保留、历史证据按需读回、精选技能及子代理 |
 | [Skills & MCP 管理器](<skills-mcp-manager/README.md>) | 0.2.1-koishi.3 | 技能浏览与 DSH-only 启停、导入与回收、原生及受管 MCP 管理 |
 
 ## 安装与调整
@@ -25,7 +25,7 @@ cd dsh-plugins
 
 研究预设首先检查 [persona](<koishi-research-preset/persona.md>)、[技能目录说明](<koishi-research-preset/README.md#使用>)及 [bundle 配置](<koishi-research-preset/cordis.patch.yml>)。它不附送私人笔记、数学 MCP 服务端或计算内核；Wolfram 等外部软件的安装和许可由使用者自行处理。
 
-研究结果会保存在 `$DSH_HOME/research-results`，未设置 `DSH_HOME` 时为 `~/.dsh/research-results`；其中包含数学工具的输入、原始输出和元数据，**默认不自动清理**。请按未发表研究资料管理，不要把结果目录提交到公开仓库。管理器的技能回收、持久状态与 MCP profile 级启停范围见其 [说明](<skills-mcp-manager/README.md#状态与权限>)。
+研究结果会保存在 `$DSH_HOME/research-results`，未设置 `DSH_HOME` 时为 `~/.dsh/research-results`；其中包含数学工具的输入、原始输出和元数据，以及 v0.2.0 压缩时生成的可见历史事件索引与分段阅读副本，**默认不自动清理**。请按未发表研究资料管理，不要把结果目录提交到公开仓库。管理器的技能回收、持久状态与 MCP profile 级启停范围见其 [说明](<skills-mcp-manager/README.md#状态与权限>)。
 
 ## 开发与验证
 
@@ -50,7 +50,7 @@ pnpm test
 pnpm run build
 ```
 
-发布检查与实机验证的边界见 [验证摘要](<VERIFICATION.md>)。这些是自用试用插件：界面视觉与点击尚未完成全面验收；研究预设没有实测自动压力压缩和真实提供商上下文溢出。Next Prompt 不在本次分享范围。
+发布检查与实机验证的边界见 [验证摘要](<VERIFICATION.md>)。这些是自用试用插件：界面视觉与点击尚未完成全面验收；研究预设 v0.2.0 已有独立合成样本的自动压力压缩验收，但仍未诱发真实提供商上下文溢出，也不保证任意会话都能压到固定比例。Next Prompt 不在本次分享范围。
 
 ## 许可与上游
 

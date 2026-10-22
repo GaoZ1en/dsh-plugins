@@ -76,6 +76,27 @@
                 name: '@koishi/dsh-research-preset/math-results'
                 config:
                   maxInlineChars: 4096
+              - id: research-compaction
+                name: cordis:group
+                group: true
+                isolate:
+                  compaction: true
+                  toolResultPruner: true
+                config:
+                  - id: compaction
+                    name: '@koishi/dsh-research-preset/compaction'
+                    config:
+                      auto: true
+                      thresholdRatio: 0.75
+                      retainTokens: 8192
+                      headroomTokens: 16384
+                      maxTokens: 32768
+                      summaryTargetChars: 6000
+                      summaryMaxChars: 12000
+                      compactionRetries: 1
+                      maxOverflowRetries: 1
+                  - id: command-compact
+                    name: '@deepseek-ai/dsh-command-compact'
           - id: planning
             name: cordis:group
             group: true
@@ -87,25 +108,6 @@
                 config:
                   section: |
                     You are in plan mode. Investigate with non-mutating reads, searches and computations; leave files and configuration unchanged. Form a concrete plan grounded in the available evidence. Ask only for user-owned choices that inspection cannot resolve. Submit the complete plan through exit_plan_mode for approval, as the final tool call of the response. Conversational agreement does not exit plan mode; implementation begins only after approval through that tool or an explicit session-mode switch.
-          - id: research-compaction
-            name: cordis:group
-            group: true
-            isolate:
-              compaction: true
-              toolResultPruner: true
-            config:
-              - id: compaction
-                name: '@koishi/dsh-research-preset/compaction'
-                config:
-                  auto: true
-                  thresholdRatio: 0.75
-                  retainRatio: 0.25
-                  headroomTokens: 16384
-                  maxTokens: 32768
-                  compactionRetries: 1
-                  maxOverflowRetries: 1
-              - id: command-compact
-                name: '@deepseek-ai/dsh-command-compact'
           - id: tool-subagent-control
             name: '@deepseek-ai/dsh-tool-subagent-control'
           - id: tool-subagent-list-agents

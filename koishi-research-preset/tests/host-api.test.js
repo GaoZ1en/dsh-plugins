@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { importHostModule } from '../host-api.js';
 import { apply as applyCompaction } from '../compaction.js';
 
-const context = entries => ({ loader: { *entries() { yield* entries; } } });
+const context = entries => ({ loader: { *entries() { yield* entries; } }, spillStore: { async saveText() { throw new Error('not called by mounting tests'); } } });
 test('Host imports preserve an already-loaded namespace identity', async () => {
   const namespace = { exportedClass: class {} };
   const entry = { options: { name: '@core/example' }, moduleNamespace: namespace };
@@ -27,7 +27,8 @@ test('compaction factory mounts exactly one genuine subclass with unmodified con
   ctx.plugin = async (Implementation, received) => {
     calls++; assert.equal(Object.getPrototypeOf(Implementation), Base);
     assert.equal(Implementation.Config, Base.Config); assert.equal(Implementation.inject, Base.inject);
-    assert.equal(received, config); assert.equal(typeof Implementation.prototype.summarize, 'function');
+    assert.deepEqual(received, config); assert.equal(typeof Implementation.prototype.summarize, 'function');
+    for (const inherited of ['compactIfNeeded', 'compactNow', 'compactRegion']) assert.equal(Object.hasOwn(Implementation.prototype, inherited), false);
   };
   await applyCompaction(ctx, config); assert.equal(calls, 1);
 });
